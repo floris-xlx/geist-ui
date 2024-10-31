@@ -10,10 +10,6 @@ interface Props {
   disabled?: boolean
 }
 
-const defaultProps = {
-  disabled: false,
-}
-
 type NativeAttrs = Omit<React.HTMLAttributes<any>, keyof Props>
 export type TabsItemProps = Props & NativeAttrs
 
@@ -21,8 +17,8 @@ const TabsItemComponent: React.FC<React.PropsWithChildren<TabsItemProps>> = ({
   children,
   value,
   label,
-  disabled,
-}: React.PropsWithChildren<TabsItemProps> & typeof defaultProps) => {
+  disabled = false,
+}: React.PropsWithChildren<TabsItemProps>) => {
   const { SCALES } = useScale()
   const { register, currentValue } = useTabsContext()
   const isActive = useMemo(() => currentValue === value, [currentValue, value])
@@ -147,7 +143,6 @@ const TabsItemComponent: React.FC<React.PropsWithChildren<TabsItemProps>> = ({
   return isActive ? <>{children}</> : null
 }
 
-TabsItemComponent.defaultProps = defaultProps
 TabsItemComponent.displayName = 'GeistTabsItem'
 const TabsItem = withScale(TabsItemComponent)
 export default TabsItem
