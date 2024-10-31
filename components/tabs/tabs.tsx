@@ -27,41 +27,29 @@ interface Props {
   hoverWidthRatio?: number
   align?: CSSProperties['justifyContent']
   activeClassName?: string
-  activeStyles?: CSSProperties
-}
-
-const defaultProps = {
-  className: '',
-  hideDivider: false,
-  highlight: true,
-  leftSpace: '12px' as CSSProperties['marginLeft'],
-  hoverHeightRatio: 0.7,
-  hoverWidthRatio: 1.15,
-  activeClassName: '',
-  activeStyle: {},
-  align: 'left',
+  activeStyle?: CSSProperties
 }
 
 type NativeAttrs = Omit<React.HTMLAttributes<any>, keyof Props>
 export type TabsProps = Props & NativeAttrs
 
 const TabsComponent: React.FC<React.PropsWithChildren<TabsProps>> = ({
-  initialValue: userCustomInitialValue,
-  value,
-  hideDivider,
-  hideBorder,
+  initialValue: userCustomInitialValue = '',
+  value = '',
+  hideDivider = false,
+  hideBorder = false,
   children,
   onChange,
-  className,
-  leftSpace,
-  highlight,
-  hoverHeightRatio,
-  hoverWidthRatio,
-  activeClassName,
-  activeStyle,
-  align,
+  className = '',
+  leftSpace = '12px' as CSSProperties['marginLeft'],
+  highlight = true,
+  hoverHeightRatio = 0.7,
+  hoverWidthRatio = 1.15,
+  activeClassName = '',
+  activeStyle = {},
+  align = 'left',
   ...props
-}: React.PropsWithChildren<TabsProps> & typeof defaultProps) => {
+}: React.PropsWithChildren<TabsProps>) => {
   const theme = useTheme()
   const { SCALES } = useScale()
   const [tabs, setTabs] = useState<Array<TabsHeaderItem>>([])
@@ -179,7 +167,6 @@ const TabsComponent: React.FC<React.PropsWithChildren<TabsProps>> = ({
   )
 }
 
-TabsComponent.defaultProps = defaultProps
 TabsComponent.displayName = 'GeistTabs'
 const Tabs = withScale(TabsComponent)
 export default Tabs
